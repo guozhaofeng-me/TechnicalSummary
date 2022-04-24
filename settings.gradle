@@ -1,0 +1,30 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "TechnicalSummary"
+include ':app'
+include ':SplashModule'
+include ':LoginModule'
+include ':UserModule'
+include ':AgreementModule'
+include ':WelcomeModule'
+include ':MainModule'
+include ':MinePageModule'
+include ':HomePageModule'
+include ':MessagePageModule'
+include ':BaseUIModule'
+include ':BaseNetworkModule'
+include ':BaseUtilsModule'
+include ':CommonBusinessModule'

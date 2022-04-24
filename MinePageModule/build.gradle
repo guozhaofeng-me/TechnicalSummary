@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+android {
+    compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
+    buildToolsVersion "30.0.3"
+    defaultConfig {
+        applicationId "com.guozhf.technical"
+        minSdk Integer.parseInt(MIN_SDK_VERSION)
+        targetSdk Integer.parseInt(TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(VERSION_CODE_VERSION)
+        versionName VERSION_NAME_VERSION
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:${androidx_core_Core_ktx}"
+    implementation "androidx.appcompat:appcompat:${androidx_appcompat_Appcompat}"
+    implementation "com.google.android.material:material:${com_google_android_material_Material}"
+    implementation "androidx.constraintlayout:constraintlayout:${androidx_constraintlayout_Constraintlayout}"
+    testImplementation "junit:junit:${junit_Junit}"
+    androidTestImplementation "androidx.test.ext:junit:${androidx_test_ext_Junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${androidx_test_espresso_Espresso_core}"
+}
