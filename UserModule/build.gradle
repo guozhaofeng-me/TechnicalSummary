@@ -1,12 +1,17 @@
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+if (isRunAlone.toBoolean() == true) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
 }
+apply plugin: 'org.jetbrains.kotlin.android'
+
 android {
     compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.3"
     defaultConfig {
-        applicationId "com.guozhf.technical"
+        if (isRunAlone) {
+            applicationId "com.guozhf.technical.user"
+        }
         minSdk Integer.parseInt(MIN_SDK_VERSION)
         targetSdk Integer.parseInt(TARGET_SDK_VERSION)
         versionCode Integer.parseInt(VERSION_CODE_VERSION)
@@ -21,6 +26,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            if (isRunAlone) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
