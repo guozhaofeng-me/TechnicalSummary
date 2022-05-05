@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
+
 android {
     compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.3"
@@ -28,14 +30,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:${androidx_core_Core_ktx}"
-    implementation "androidx.appcompat:appcompat:${androidx_appcompat_Appcompat}"
-    implementation "com.google.android.material:material:${com_google_android_material_Material}"
-    implementation "androidx.constraintlayout:constraintlayout:${androidx_constraintlayout_Constraintlayout}"
-    testImplementation "junit:junit:${junit_Junit}"
-    androidTestImplementation "androidx.test.ext:junit:${androidx_test_ext_Junit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${androidx_test_espresso_Espresso_core}"
+    implementation project(path: ':SplashModule')
+    implementation project(path: ':UserModule')
+    implementation project(path: ':MinePageModule')
+    implementation project(path: ':WelcomeModule')
+    implementation project(path: ':MainModule')
+    implementation project(path: ':HomePageModule')
+    implementation project(path: ':MessagePageModule')
+    implementation project(path: ':AgreementModule')
+    implementation project(path: ':LoginModule')
+    implementation project(path: ':CommonBusinessModule')
+    implementation project(path: ':TrainingGroundModule')
+}
+repositories {
+    mavenCentral()
 }

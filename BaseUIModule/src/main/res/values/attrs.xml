@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleBar">
+        <attr name="aTitle" format="reference" />
+        <attr name="aLeftIcon" format="reference" />
+        <attr name="aRightIcon" format="reference" />
+        <attr name="aCustomTitle" format="reference" />
+        <attr name="aRightText" format="reference" />
+        <attr name="aTitleBg" format="reference" />
+    </declare-styleable>
+</resources>

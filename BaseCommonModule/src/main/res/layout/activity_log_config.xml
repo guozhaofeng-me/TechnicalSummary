@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.guozhf.common.log.LogConfigActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="日志配置" />
+
+        <TextView
+            android:id="@+id/tv_log_switch_tag"
+            style="@style/LogConfigStyle"
+            android:layout_marginStart="16dp"
+            android:text="是否打开日志"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_log_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_log_switch_tag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_log_switch_tag" />
+
+        <TextView
+            android:id="@+id/tv_save_to_file_tag"
+            style="@style/LogConfigStyle"
+            android:layout_marginStart="16dp"
+            android:text="是否保存到本地"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_log_switch_tag" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_save_to_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_save_to_file_tag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_save_to_file_tag" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -4,12 +4,13 @@ if (isRunAlone.toBoolean() == true) {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.3"
     defaultConfig {
-        if (isRunAlone) {
+        if (Boolean.parseBoolean(isRunAlone)) {
             applicationId "com.guozhf.technical.splash"
         }
         minSdk Integer.parseInt(MIN_SDK_VERSION)
@@ -18,6 +19,13 @@ android {
         versionName VERSION_NAME_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // ARouter配置
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -47,11 +55,10 @@ android {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:${androidx_core_Core_ktx}"
-    implementation "androidx.appcompat:appcompat:${androidx_appcompat_Appcompat}"
-    implementation "com.google.android.material:material:${com_google_android_material_Material}"
-    implementation "androidx.constraintlayout:constraintlayout:${androidx_constraintlayout_Constraintlayout}"
-    testImplementation "junit:junit:${junit_Junit}"
-    androidTestImplementation "androidx.test.ext:junit:${androidx_test_ext_Junit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${androidx_test_espresso_Espresso_core}"
+    implementation project(path: ':CommonBusinessModule')
+    kapt "com.alibaba:arouter-compiler:${com_alibaba_Arouter_compiler}"
+
 }
+//repositories {
+//    mavenCentral()
+//}
