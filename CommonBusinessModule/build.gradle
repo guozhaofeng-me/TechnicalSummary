@@ -1,18 +1,26 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
+
 android {
     compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.3"
     defaultConfig {
-        applicationId "com.guozhf.technical"
         minSdk Integer.parseInt(MIN_SDK_VERSION)
         targetSdk Integer.parseInt(TARGET_SDK_VERSION)
         versionCode Integer.parseInt(VERSION_CODE_VERSION)
         versionName VERSION_NAME_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // ARouter配置
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -31,11 +39,7 @@ android {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:${androidx_core_Core_ktx}"
-    implementation "androidx.appcompat:appcompat:${androidx_appcompat_Appcompat}"
-    implementation "com.google.android.material:material:${com_google_android_material_Material}"
-    implementation "androidx.constraintlayout:constraintlayout:${androidx_constraintlayout_Constraintlayout}"
-    testImplementation "junit:junit:${junit_Junit}"
-    androidTestImplementation "androidx.test.ext:junit:${androidx_test_ext_Junit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${androidx_test_espresso_Espresso_core}"
+    api project(path: ':BaseUIModule')
+    api project(path: ':BaseNetworkModule')
+    kapt "com.alibaba:arouter-compiler:${com_alibaba_Arouter_compiler}"
 }

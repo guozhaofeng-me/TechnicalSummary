@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion Integer.parseInt(COMPILE_SDK_VERSION)
+
+    defaultConfig {
+        minSdk Integer.parseInt(MIN_SDK_VERSION)
+        targetSdk Integer.parseInt(TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(VERSION_CODE_VERSION)
+        versionName VERSION_NAME_VERSION
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api "androidx.core:core-ktx:${androidx_core_Core_ktx}"
+    api "androidx.appcompat:appcompat:${androidx_appcompat_Appcompat}"
+    api "com.google.android.material:material:${com_google_android_material_Material}"
+    api "androidx.constraintlayout:constraintlayout:${androidx_constraintlayout_Constraintlayout}"
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // For test
+    testApi "junit:junit:${junit_Junit}"
+    androidTestApi "androidx.test.ext:junit:${androidx_test_ext_Junit}"
+    androidTestApi "androidx.test.espresso:espresso-core:${androidx_test_espresso_Espresso_core}"
+}
