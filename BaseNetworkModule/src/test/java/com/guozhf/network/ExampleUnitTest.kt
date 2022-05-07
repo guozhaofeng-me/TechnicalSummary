@@ -1,4 +1,4 @@
-package com.guozhf.basenetworkmodule
+package com.guozhf.network
 
 import org.junit.Test
 

@@ -32,4 +32,8 @@ android {
 
 dependencies {
     api project(path: ':BaseCommonModule')
+    implementation "com.squareup.retrofit2:retrofit:${com_squareup_retrofit2_Retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${com_squareup_retrofit2_Converter_gson}"
+    implementation "com.google.code.gson:gson:${com_google_code_gson_Gson}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${com_squareup_okhttp3_Logging_interceptor}"
 }
