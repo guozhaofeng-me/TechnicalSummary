@@ -1,8 +1,13 @@
 package com.guozhf.network
 
+import com.guozhf.common.BaseApplication
+import com.guozhf.network.interceptor.CacheInterceptor
+import okhttp3.Cache
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
@@ -20,6 +25,8 @@ object ApiClient {
     private val defaultConfig = ApiClientConfig.getDefaultConfig()// 默认的网络配置
 
     private val retrofitMap = hashMapOf<Int, Retrofit>()
+
+    private const val cacheFileName = "http_cache"
 
     fun setDefaultBaseUrl(url: String?) {
         if (url.isNullOrEmpty())
@@ -77,6 +84,23 @@ object ApiClient {
             .connectTimeout(config.getConnectTimeout(), TimeUnit.MILLISECONDS)
             .readTimeout(config.getReadTimeout(), TimeUnit.MILLISECONDS)
             .writeTimeout(config.getWriteTimeout(), TimeUnit.MILLISECONDS)
+
+        builder.retryOnConnectionFailure(true) // 设置失败重连
+
+        // 开发模式记录整个body，否则只记录基本信息如返回200，http协议版本等
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        builder.addInterceptor(httpLoggingInterceptor)
+        if (BaseApplication.isDebug) {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        } else {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+        }
+
+        // 增加缓存
+        builder.cache(createCache())
+        // 添加缓存拦截器
+        builder.addInterceptor(CacheInterceptor())
+
         for (interceptor in config.appInterceptors) { // 添加应用拦截器
             builder.addInterceptor(interceptor)
         }
@@ -85,5 +109,14 @@ object ApiClient {
         }
         // TODO https相关设置
         return builder.build()
+    }
+
+    /**
+     * 创建缓存，需要和CacheInterceptor配合使用
+     * @return Cache
+     */
+    private fun createCache(): Cache {
+        val file = File(BaseApplication.getContext()?.externalCacheDir, cacheFileName)
+        return Cache(file, (1024 * 1024 * 50).toLong())
     }
 }

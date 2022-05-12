@@ -1,13 +1,13 @@
 package com.guozhf.common
 
 import android.app.Application
+import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
 
 open class BaseApplication : Application() {
-    private var isDebug: Boolean = false
-
     override fun onCreate() {
         super.onCreate()
+        appContext = this
         initARouter()
     }
 
@@ -20,7 +20,9 @@ open class BaseApplication : Application() {
         ARouter.init(this)
     }
 
-    fun setDebug(isDebug: Boolean) {
-        this.isDebug = isDebug
+    companion object {
+        private var appContext: Context? = null
+        var isDebug: Boolean = false
+        fun getContext():Context? = appContext
     }
 }

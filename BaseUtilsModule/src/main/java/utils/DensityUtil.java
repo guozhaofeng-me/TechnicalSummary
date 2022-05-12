@@ -2,7 +2,13 @@ package utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.DisplayCutout;
+import android.view.WindowInsets;
+
+import java.util.List;
 
 public class DensityUtil {
 	public static int dip2px(Context context, float dpValue) {
@@ -39,5 +45,28 @@ public class DensityUtil {
 		((Activity) context).getWindowManager().getDefaultDisplay()
 				.getMetrics(dm);
 		return dm.heightPixels;
+	}
+
+	/**
+	 * 获取异形屏title高度（启动状态）
+	 * @param context
+	 * @return
+	 */
+	public static int getCutoutHeight(Context context) {
+		int cutoutHeight = 0;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+			WindowInsets windowInsets = ((Activity) context).getWindow().getDecorView().getRootWindowInsets();
+			if (windowInsets != null) {
+				DisplayCutout displayCutout = windowInsets.getDisplayCutout();
+				if (displayCutout != null) {
+					List<Rect> rects = displayCutout.getBoundingRects();
+					// 通过判断是否存在rects来确定是否为刘海屏手机
+					if (rects != null && rects.size() > 0) {
+						cutoutHeight = rects.get(0).height();
+					}
+				}
+			}
+		}
+		return cutoutHeight;
 	}
 }

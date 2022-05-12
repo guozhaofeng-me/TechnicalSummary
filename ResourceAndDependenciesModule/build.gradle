@@ -38,6 +38,8 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:${androidx_constraintlayout_Constraintlayout}"
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "com.google.code.gson:gson:${com_google_code_gson_Gson}"
+
 
     // For test
     testApi "junit:junit:${junit_Junit}"
