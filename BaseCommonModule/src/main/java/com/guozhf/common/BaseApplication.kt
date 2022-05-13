@@ -1,7 +1,9 @@
 package com.guozhf.common
 
+import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import android.text.TextUtils
 import com.alibaba.android.arouter.launcher.ARouter
 
 open class BaseApplication : Application() {
@@ -24,5 +26,17 @@ open class BaseApplication : Application() {
         private var appContext: Context? = null
         var isDebug: Boolean = false
         fun getContext():Context? = appContext
+    }
+
+    fun isCurrentProcessName(context: Context): Boolean {
+        val pid = android.os.Process.myPid()
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val runningAppProcesses = activityManager.runningAppProcesses ?: return false
+        for (appProcess in runningAppProcesses) {
+            if (appProcess != null && appProcess.pid == pid) {
+                return TextUtils.equals(packageName, appProcess.processName)
+            }
+        }
+        return false
     }
 }
