@@ -38,4 +38,5 @@ android {
 dependencies {
     api project(path: ':BaseUtilsModule')
     api "com.alibaba:arouter-api:1.5.1"
+    api "org.greenrobot:eventbus:${org_greenrobot_Eventbus}"
 }
